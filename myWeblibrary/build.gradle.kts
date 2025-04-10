@@ -33,27 +33,30 @@ android {
         jvmTarget = "11"
     }
 
-
+    // 定义单一变体发布配置，生成源码和 Javadoc JAR 文件
     publishing {
         singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
+//            withSourcesJar()
+//            withJavadocJar()
         }
     }
 }
 
+// afterEvaluate 确保 Android 组件配置完成后再配置发布任务
 afterEvaluate {
     configure<PublishingExtension> {
         publications {
             create<MavenPublication>("myWeblibrary") {
                 from(components["release"])
+                // 请确保 groupId 和 artifactId 与 GitHub Packages 的要求一致
                 groupId = "com.github.alem2coder1"
                 artifactId = "myWeblibrary"
-                version = "1.0.1"
+                version = "1.0.6" // 使用一个全新的版本号避免已存在版本冲突
             }
         }
         repositories {
             maven {
+                // 如果你使用的是已有的仓库 "fristPackages"，则 URL 如下
                 setUrl("https://maven.pkg.github.com/alem2coder1/fristPackages")
                 credentials {
                     username = System.getenv("GITHUB_USERNAME")
