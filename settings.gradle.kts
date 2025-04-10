@@ -22,3 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "lab2"
 include(":app")
 include(":myWeblibrary")
+
+//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
