@@ -32,19 +32,26 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 afterEvaluate {
     configure<PublishingExtension> {
         publications {
-            create<MavenPublication>("release") {
+            create<MavenPublication>("myWeblibrary") {
                 from(components["release"])
                 groupId = "com.github.alem2coder1"
                 artifactId = "myWeblibrary"
-                version = "1.0.0"
+                version = "1.0.1"
             }
         }
-
         repositories {
             maven {
                 setUrl("https://maven.pkg.github.com/alem2coder1/fristPackages")
